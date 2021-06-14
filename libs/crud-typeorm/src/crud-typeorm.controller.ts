@@ -30,7 +30,7 @@ export class CrudTypeormController<T extends BaseEntity> {
     return this.crudTypeormService.remove(id);
   }
   @Patch('/:id')
-  updateOne(@Param('id') id: number, @Body() dto: DeepPartial<T>):Promise<T> {
-    return this.crudTypeormService.update(id,dto);
+  updateOne(@Param('id') id: number, @Body() dto: DeepPartial<T>): Promise<T> {
+    return this.crudTypeormService.update(id, dto);
   }
 }

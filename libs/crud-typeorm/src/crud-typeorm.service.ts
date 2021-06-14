@@ -11,8 +11,7 @@ import { BaseEntity } from './entities/base.entity';
 
 @Injectable()
 export class CrudTypeormService<T extends BaseEntity>
-  implements CrudBaseService<T>
-{
+  implements CrudBaseService<T> {
   constructor(
     @InjectRepository(BaseEntity)
     private baseRepository: Repository<T>,
@@ -27,43 +26,39 @@ export class CrudTypeormService<T extends BaseEntity>
     return entity;
   }
   async findOne(id: number): Promise<T> {
-    try{
-       const found = await this.baseRepository.findOne({ where: { id } });
-    if (!found) {
-      throw new NotFoundException(
-        `Not found ${this.entityName} with id = ${id}`,
-      );
-    }
-        return found;
-
-    }
-    catch(err){
+    try {
+      const found = await this.baseRepository.findOne({ where: { id } });
+      if (!found) {
+        throw new NotFoundException(
+          `Not found ${this.entityName} with id = ${id}`,
+        );
+      }
+      return found;
+    } catch (err) {
       throw new BadRequestException();
     }
-   
   }
-  async remove(id: number): Promise<void> {
+  async remove(id: number): Promise<T> {
     try {
       const found = await this.findOne(id);
       await this.baseRepository.remove(found);
+      return found;
     } catch (err) {
       throw new BadGatewayException(
         `Can not delete ${this.entityName} with id = ${id}`,
       );
     }
   }
-  async update(id:number, dto:DeepPartial<T>):Promise<T>{
+  async update(id: number, dto: DeepPartial<T>): Promise<T> {
     const found = await this.findOne(id);
-    const entityProperties =
-      this.baseRepository.metadata.ownColumns.map(
-        (column) => column.propertyName,
-      );
-    Object.getOwnPropertyNames(dto).forEach(element => {
-      if(entityProperties.includes(element)) found[element] = dto[element];
+    const entityProperties = this.baseRepository.metadata.ownColumns.map(
+      (column) => column.propertyName,
+    );
+    Object.getOwnPropertyNames(dto).forEach((element) => {
+      if (entityProperties.includes(element)) found[element] = dto[element];
     });
     await this.baseRepository.save<any>(found);
     return found;
-
   }
   protected get entityName(): string {
     return this.baseRepository.metadata.targetName;
