@@ -1,0 +1,18 @@
+{
+  "collection": "@nestjs/schematics",
+  "sourceRoot": "src",
+  "projects": {
+    "crud-typeorm": {
+      "type": "library",
+      "root": "libs/crud-typeorm",
+      "entryFile": "index",
+      "sourceRoot": "libs/crud-typeorm/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/crud-typeorm/tsconfig.lib.json"
+      }
+    }
+  },
+  "compilerOptions": {
+    "webpack": true
+  }
+}
