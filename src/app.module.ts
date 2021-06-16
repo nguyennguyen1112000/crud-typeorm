@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
-import { User } from './user/entities/user.entity';
+import { UserEntity } from './user/entities/user.entity';
 import { BaseEntity } from '@app/crud-typeorm/entities/base.entity';
 import { GraphQLModule } from '@nestjs/graphql';
-import { UserResolver } from './user/user.resolver';
+import { StudentModule } from './student/student.module';
+import { StudentEntity } from './student/entities/student.entity';
 @Module({
   imports: [
     GraphQLModule.forRoot({autoSchemaFile:true}),
@@ -15,10 +16,11 @@ import { UserResolver } from './user/user.resolver';
       username: 'root',
       password: '123456',
       database: 'userdb',
-      entities: [User, BaseEntity],
+      entities: [StudentEntity,UserEntity, BaseEntity],
       synchronize: true,
     }),
     UserModule,
+    StudentModule,
   ],
   controllers: [],
   providers: [],
