@@ -2,11 +2,11 @@ import { Module } from '@nestjs/common';
 import { CrudTypeormService } from './crud-typeorm.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BaseEntity } from './entities/base.entity';
-import { CrudTypeormController } from './crud-typeorm.controller';
+import { AuthModule } from './auth/auth.module';
 @Module({
-  imports: [TypeOrmModule.forFeature([BaseEntity])],
+  imports: [TypeOrmModule.forFeature([BaseEntity]), AuthModule],
   providers: [CrudTypeormService],
-  controllers: [CrudTypeormController],
+  controllers: [],
   exports: [CrudTypeormService, TypeOrmModule],
 })
 export class CrudTypeormModule {}

@@ -2,3 +2,8 @@ export * from './crud-typeorm.module';
 export * from './crud-typeorm.service';
 export * from './crud-typeorm.controller';
 export * from './crud-typeorm.resolver';
+export * from './auth/auth.controller';
+export * from './auth/auth.service';
+export * from './auth/local.stratery';
+export * from './auth/jwt.stratetry'
+export * from './auth/auth.resolver'

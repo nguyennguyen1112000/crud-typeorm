@@ -1,9 +1,10 @@
-import { Body, Controller,  Post } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { UserService } from './user.service';
-import { CrudTypeormController } from '@app/crud-typeorm';
+import { AuthController } from '@app/crud-typeorm';
 import { UserEntity } from './entities/user.entity';
+import { CreateUserDto } from './dto/create-user.dto';
 @Controller('user')
-export class UserController extends CrudTypeormController<UserEntity> {
+export class UserController extends AuthController(UserEntity, CreateUserDto) {
   constructor(private readonly userService: UserService) {
     super(userService);
   }
