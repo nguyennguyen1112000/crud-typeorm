@@ -1,12 +1,11 @@
 import { Args, Mutation, Resolver, Query } from '@nestjs/graphql';
 import { AuthService } from './auth.service';
-import { ClassType, CredentialDto } from './dto/create-auth.dto';
+import { ClassType } from './dto/create-auth.dto';
 import { Auth } from './entities/auth.entity';
 import { InputDto } from '../dto';
 import { CredentialGraphqlDto } from './dto/create-auth.graphql.dto ';
 import { UserToken } from './entities/user-token';
-import { GetUser } from './user.decorator';
-import { UseGuards } from '@nestjs/common';
+import { UnauthorizedException, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from './gql-auth.guard';
 import { CurrentUser } from './gql-user.decorator';
 
@@ -28,7 +27,12 @@ export function AuthResolver<T extends ClassType, H extends Auth>(
     async login(
       @Args('dto') dto: CredentialDto,
     ): Promise<{ access_token: string }> {
-      return this.authService.login(dto);
+      const auth = await this.authService.validateUser(dto);
+      console.log(auth);
+      if(auth) return this.authService.login(dto);
+      else {
+        throw new UnauthorizedException(`Username or password is not valid`)
+      }
     }
     @UseGuards(GqlAuthGuard)
     @Query((type) => baseType, { name: `profile${baseType.name}` })

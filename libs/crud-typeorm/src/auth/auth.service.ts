@@ -1,4 +1,7 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DeepPartial, Repository } from 'typeorm';
 import { Auth } from './entities/auth.entity';
@@ -21,7 +24,7 @@ export class AuthService<T extends Auth> {
     return null;
   }
   async login(user: any): Promise<{ access_token: string }> {
-    const { password, ...payload } = user;
+    const { password,  ...payload } = user;
     this.jwtService = new JwtService({
       secret: jwtConstants.KEY,
       signOptions: { expiresIn: 3600 },

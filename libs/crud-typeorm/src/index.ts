@@ -5,5 +5,6 @@ export * from './crud-typeorm.resolver';
 export * from './auth/auth.controller';
 export * from './auth/auth.service';
 export * from './auth/local.stratery';
-export * from './auth/jwt.stratetry'
-export * from './auth/auth.resolver'
+export * from './auth/jwt.stratetry';
+export * from './auth/auth.resolver';
+export * from './auth/entities/auth.entity';
