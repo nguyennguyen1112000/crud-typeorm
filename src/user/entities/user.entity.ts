@@ -1,5 +1,5 @@
-import { Auth } from '@app/crud-typeorm/auth/entities/auth.entity';
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Auth } from '@app/crud-typeorm';
+import { Entity, Column } from 'typeorm';
 
 @Entity()
 export class UserEntity extends Auth{

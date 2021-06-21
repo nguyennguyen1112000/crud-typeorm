@@ -4,10 +4,10 @@ import { UserModule } from './user/user.module';
 import { UserEntity } from './user/entities/user.entity';
 import { BaseEntity } from '@app/crud-typeorm/entities/base.entity';
 import { GraphQLModule } from '@nestjs/graphql';
-import { StudentModule } from './student/student.module';
-import { StudentEntity } from './student/entities/student.entity';
 import { Auth } from '@app/crud-typeorm/auth/entities/auth.entity';
 import { JwtStrategy } from '@app/crud-typeorm';
+import { AdminEntity } from './student/entities/admin.entity';
+import { AdminModule } from './student/admin.module';
 @Module({
   imports: [
     GraphQLModule.forRoot({ autoSchemaFile: true }),
@@ -18,11 +18,11 @@ import { JwtStrategy } from '@app/crud-typeorm';
       username: 'root',
       password: '123456',
       database: 'userdb',
-      entities: [StudentEntity, UserEntity, BaseEntity, Auth],
+      entities: [AdminEntity, UserEntity, BaseEntity, Auth],
       synchronize: true,
     }),
     UserModule,
-    StudentModule,
+    AdminModule,
   ],
   controllers: [],
   providers: [JwtStrategy],

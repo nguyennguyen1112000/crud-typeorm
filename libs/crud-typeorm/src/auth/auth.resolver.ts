@@ -28,7 +28,6 @@ export function AuthResolver<T extends ClassType, H extends Auth>(
       @Args('dto') dto: CredentialDto,
     ): Promise<{ access_token: string }> {
       const auth = await this.authService.validateUser(dto);
-      console.log(auth);
       if(auth) return this.authService.login(dto);
       else {
         throw new UnauthorizedException(`Username or password is not valid`)
